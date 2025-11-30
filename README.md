@@ -1,5 +1,7 @@
 # FotoGallery - Vercel deployment (secure GitHub uploads)
 
+![Image](https://github.com/user-attachments/assets/7ac754d2-29bd-4ce8-bdc5-fe87b9f144cf)
+
 This project contains a static frontend (`index.html`) and two Vercel Serverless API endpoints:
 - `/api/upload` — uploads a base64 image to a GitHub repo (creates file in `images/`).
 - `/api/issue`  — creates a GitHub issue (to reference the uploaded image).
