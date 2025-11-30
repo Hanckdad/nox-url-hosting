@@ -1,469 +1,249 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FotoGallery | Upload ke GitHub — Bayu Official</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FotoGallery — Anime Aesthetic</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <!-- Aesthetic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Nunito:wght@300;600;800&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome (icons) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    :root{
-      --bg-1: #091026;
-      --bg-2: #0f1530;
-      --card: rgba(255,255,255,0.03);
-      --glass: rgba(255,255,255,0.04);
-      --accent-from: #7c3aed;
-      --accent-to: #ef6aa6;
-      --muted: #9fb0d0;
-      --glass-border: rgba(255,255,255,0.06);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
-      color:#eaf2ff;
-      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
-      overflow:hidden;
-    }
+    <style>
+        * {
+            padding: 0; margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    /* Particles canvas occupies full background */
-    #particles {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
+        body {
+            background: linear-gradient(135deg, #ff9ad5, #a77bff, #6c4fff);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+        }
 
-    /* Main card */
-    .wrap{
-      position:relative;
-      width:100%;
-      max-width:1100px;
-      z-index: 2;
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:22px;
-      align-items:start;
-    }
-    @media (max-width:980px){
-      .wrap{grid-template-columns:1fr; padding:12px}
-    }
+        /* PARTICLE BACKGROUND */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
 
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid var(--glass-border);
-      border-radius:16px;
-      padding:22px;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      backdrop-filter: blur(8px);
-    }
+        header {
+            text-align: center;
+            padding: 70px 20px 30px;
+        }
 
-    header.card-head{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom:12px;
-    }
-    .brand{
-      width:64px;height:64px;border-radius:12px;
-      background: linear-gradient(135deg,var(--accent-from),var(--accent-to));
-      display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;
-      box-shadow: 0 8px 26px rgba(124,58,237,0.14);
-      flex-shrink:0;
-    }
-    .brand small{display:block;font-size:11px;color:rgba(255,255,255,0.85);opacity:.95}
+        .title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffe0f9, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(255,255,255,0.6);
+        }
 
-    h1.title{
-      font-family:'Playfair Display', serif;
-      font-size:22px;margin:0;color:#fff;letter-spacing:0.2px;
-    }
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:13px;max-width:640px}
+        .subtitle {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
 
-    /* Left main area */
-    .upload-area{
-      display:flex;flex-direction:column;gap:12px;
-    }
-    .drop{
-      border-radius:12px;padding:20px;border:2px dashed rgba(255,255,255,0.04);
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-      cursor:pointer;transition:transform .18s ease, border-color .18s ease;
-      text-align:center;
-    }
-    .drop:hover{transform:translateY(-6px);border-color:rgba(239,114,176,0.18)}
-    .drop .bigicon{font-size:40px;color:rgba(255,255,255,0.95)}
-    .drop .hint{font-weight:600}
+        .container {
+            width: min(900px, 92%);
+            margin: auto;
+            margin-top: 40px;
+            backdrop-filter: blur(25px);
+            background: rgba(255,255,255,0.15);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(255,255,255,0.3);
+        }
 
-    .muted{color:var(--muted);font-size:13px}
-    .controls{display:flex;gap:10px;align-items:center;margin-top:8px}
-    .btn{
-      background:linear-gradient(90deg,var(--accent-from),var(--accent-to));
-      color:white;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer;
-      box-shadow:0 8px 18px rgba(124,58,237,0.12)
-    }
-    .btn.secondary{
-      background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted);font-weight:600;
-      padding:9px 12px;border-radius:10px;cursor:pointer
-    }
+        .upload-box {
+            border: 2px dashed rgba(255,255,255,0.6);
+            border-radius: 20px;
+            text-align: center;
+            padding: 50px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    /* Right preview column */
-    .meta{
-      display:flex;flex-direction:column;gap:12px;
-    }
-    .preview{
-      border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
-      background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(255,255,255,0.01));
-    }
-    .image-preview{
-      width:100%;height:300px;object-fit:cover;display:block;background:#091026;
-    }
-    .info{
-      padding:12px;display:flex;flex-direction:column;gap:8px;
-    }
-    .info .row{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+        .upload-box:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.02);
+        }
 
-    .result{
-      padding:12px;border-radius:10px;background:rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.03);
-      margin-top:8px;display:none;word-break:break-all;font-family:monospace;font-size:13px;
-    }
+        .upload-box i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255,255,255,0.8);
+        }
 
-    .actions{display:flex;gap:8px;margin-top:8px}
+        .preview {
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+        }
 
-    /* Footer area */
-    footer.site-foot{
-      position:fixed;left:20px;right:20px;bottom:18px;display:flex;justify-content:space-between;gap:12px;align-items:center;
-      z-index:3;color:var(--muted);font-size:13px;
-      pointer-events:none;
-    }
-    footer .left, footer .right{pointer-events:auto}
-    a.link{color:var(--muted);text-decoration:none;border-bottom:1px dashed rgba(255,255,255,0.02);padding-bottom:2px}
-    .author{
-      display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)
-    }
+        .preview img {
+            max-width: 100%;
+            border-radius: 18px;
+            box-shadow: 0 0 25px rgba(255,255,255,0.5);
+        }
 
-    /* small helpers */
-    .hidden{display:none}
-  </style>
+        .upload-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(45deg, #ff7bd1, #b57bff);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 4px 20px rgba(255,255,255,0.3);
+        }
+
+        .upload-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 30px rgba(255,255,255,0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
 </head>
+
 <body>
-  <!-- particle canvas -->
-  <canvas id="particles"></canvas>
 
-  <div class="wrap">
-    <!-- Left column -->
-    <div class="card">
-      <header class="card-head">
-        <div class="brand"><i class="fas fa-cloud-upload-alt"></i></div>
-        <div>
-          <h1 class="title">FotoGallery — Upload aman ke GitHub</h1>
-          <small class="lead">Frontend aman (tidak ada token). Gunakan Vercel + environment variable <code>GITHUB_TOKEN</code>.</small>
-        </div>
-      </header>
+    <!-- Particle Background -->
+    <canvas id="particles"></canvas>
 
-      <div class="upload-area">
-        <div id="drop" class="drop" title="Klik atau seret foto ke sini">
-          <div class="bigicon"><i class="fas fa-file-image"></i></div>
-          <div class="hint">Seret foto ke sini atau klik untuk memilih</div>
-          <div class="muted">JPG / PNG / WEBP / GIF — Maks 10MB</div>
-          <input id="fileInput" type="file" accept="image/*" style="display:none" />
+    <header>
+        <h1 class="title">FotoGallery — Anime Aesthetic</h1>
+        <p class="subtitle">Upload foto Anda dengan tampilan anime aesthetic & efek partikel halus</p>
+    </header>
+
+    <div class="container">
+
+        <div class="upload-box" id="uploadArea">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Klik atau seret gambar ke sini</p>
+            <small>(JPG, PNG, WEBP — max 10MB)</small>
         </div>
 
-        <div class="controls">
-          <button id="selectBtn" class="btn secondary">Pilih Foto</button>
-          <button id="uploadBtn" class="btn">Upload ke GitHub</button>
-          <div id="loading" class="muted" style="display:none">Mengupload…</div>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+
+        <div class="preview" id="previewBox">
+            <img id="previewImg">
+            <button class="upload-btn">Upload</button>
         </div>
-
-        <div id="status" class="muted" style="margin-top:8px"></div>
-
-        <!-- small author / repo info -->
-        <div style="margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <div class="author">
-            <span style="font-weight:700;color:#fff">Author:</span>
-            <span style="margin-left:6px">BAYU OFFICIAL</span>
-          </div>
-
-          <div class="author">
-            <span style="font-weight:700;color:#fff">GitHub:</span>
-            <a class="link" href="https://github.com/Hanckdad" target="_blank" rel="noreferrer">Hanckdad</a>
-          </div>
-
-          <div class="author">
-            <span style="font-weight:700;color:#fff">Portofolio:</span>
-            <a class="link" href="https://nox-portofolio-bfry0u.vercel.app" target="_blank" rel="noreferrer">nox-portofolio</a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- Right column (preview & meta) -->
-    <div class="card">
-      <div class="meta">
-        <div class="preview">
-          <img id="imagePreview" class="image-preview" src="https://raw.githubusercontent.com/Hanckdad/Database-Foto/main/images/1764415844797-1000303536.jpg" alt="Preview">
-          <div class="info">
-            <div class="row"><div>Nama File</div><div id="fileName">1000303536.jpg</div></div>
-            <div class="row"><div>Ukuran</div><div id="fileSize">2.4 MB</div></div>
-            <div class="row"><div>Dimensi</div><div id="fileDimensions">1920 × 1080</div></div>
-            <div class="row"><div>Format</div><div id="fileFormat">JPEG</div></div>
+    <footer>
+        Author: <b>BAYU</b> • GitHub: <a href="https://github.com/Hanckdad" target="_blank">Hanckdad</a><br>
+        <i>use it well</i>
+    </footer>
 
-            <div id="result" class="result"></div>
+    <script>
+        const uploadArea = document.getElementById("uploadArea");
+        const fileInput = document.getElementById("fileInput");
+        const previewBox = document.getElementById("previewBox");
+        const previewImg = document.getElementById("previewImg");
 
-            <div class="actions">
-              <button id="copyBtn" class="btn secondary" style="display:none"><i class="fas fa-copy"></i> Salin Link</button>
-              <button id="viewBtn" class="btn secondary" style="display:none"><i class="fas fa-external-link-alt"></i> Lihat</button>
-            </div>
-          </div>
-        </div>
+        uploadArea.onclick = () => fileInput.click();
 
-        <!-- gallery preview placeholders -->
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <div style="width:100%;border-radius:12px;padding:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.02);font-size:13px;color:var(--muted)">
-            Foto Terbaru (static preview)
-            <div style="display:flex;gap:8px;margin-top:6px">
-              <img src="https://raw.githubusercontent.com/Hanckdad/Database-Foto/main/images/1764415844797-1000303536.jpg" alt="" style="width:60px;height:40px;object-fit:cover;border-radius:6px">
-              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=200&q=60" alt="" style="width:60px;height:40px;object-fit:cover;border-radius:6px">
-              <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=200&q=60" alt="" style="width:60px;height:40px;object-fit:cover;border-radius:6px">
-            </div>
-          </div>
-        </div>
+        fileInput.onchange = () => handleFile(fileInput.files[0]);
 
-      </div>
-    </div>
-  </div>
-
-  <footer class="site-foot">
-    <div class="left">Author: <strong>BAYU OFFICIAL</strong> — GitHub: <a class="link" href="https://github.com/Hanckdad" target="_blank" rel="noreferrer">Hanckdad</a></div>
-    <div class="right">Portofolio: <a class="link" href="https://nox-portofolio-bfry0u.vercel.app" target="_blank" rel="noreferrer">nox-portofolio</a> • <strong>use it well</strong></div>
-  </footer>
-
-  <script>
-    /**********************
-     * Particles Background
-     * lightweight canvas particle effect
-     **********************/
-    (function () {
-      const canvas = document.getElementById('particles');
-      const ctx = canvas.getContext('2d');
-      let w = canvas.width = innerWidth;
-      let h = canvas.height = innerHeight;
-      const DPR = window.devicePixelRatio || 1;
-      canvas.width = innerWidth * DPR;
-      canvas.height = innerHeight * DPR;
-      canvas.style.width = innerWidth + 'px';
-      canvas.style.height = innerHeight + 'px';
-      ctx.scale(DPR, DPR);
-
-      const particles = [];
-      const PARTICLE_COUNT = Math.round((w*h)/90000); // scale with screen
-      for (let i=0;i<PARTICLE_COUNT;i++){
-        particles.push({
-          x: Math.random()*w,
-          y: Math.random()*h,
-          r: 0.6 + Math.random()*1.8,
-          vx: (Math.random()-0.5)*0.3,
-          vy: (Math.random()-0.5)*0.3,
-          alpha: 0.08 + Math.random()*0.22
+        uploadArea.addEventListener("dragover", e => {
+            e.preventDefault();
+            uploadArea.style.background = "rgba(255,255,255,0.25)";
         });
-      }
 
-      function render(){
-        ctx.clearRect(0,0,w,h);
-        // subtle radial gradient tint
-        const g = ctx.createLinearGradient(0,0,w,h);
-        g.addColorStop(0, "rgba(124,58,237,0.02)");
-        g.addColorStop(1, "rgba(239,114,176,0.02)");
-        ctx.fillStyle = g;
-        ctx.fillRect(0,0,w,h);
+        uploadArea.addEventListener("dragleave", () => {
+            uploadArea.style.background = "transparent";
+        });
 
-        for (let p of particles){
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < -10) p.x = w + 10;
-          if (p.x > w + 10) p.x = -10;
-          if (p.y < -10) p.y = h + 10;
-          if (p.y > h + 10) p.y = -10;
+        uploadArea.addEventListener("drop", e => {
+            e.preventDefault();
+            uploadArea.style.background = "transparent";
+            handleFile(e.dataTransfer.files[0]);
+        });
 
-          ctx.beginPath();
-          ctx.fillStyle = 'rgba(255,255,255,'+p.alpha+')';
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-          ctx.fill();
+        function handleFile(file) {
+            if (!file || !file.type.startsWith("image/")) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                previewImg.src = e.target.result;
+                previewBox.style.display = "block";
+            };
+            reader.readAsDataURL(file);
         }
 
-        // lines between near particles
-        for (let i = 0; i < particles.length; i++){
-          for (let j = i+1; j < particles.length; j++){
-            let a = particles[i], b = particles[j];
-            let dx = a.x - b.x, dy = a.y - b.y;
-            let d = Math.sqrt(dx*dx + dy*dy);
-            if (d < 90){
-              ctx.beginPath();
-              ctx.strokeStyle = 'rgba(255,255,255,'+ (0.02 - d*0.00015) +')';
-              ctx.lineWidth = 0.7;
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
+        /* Soft Anime Particle */
+        const canvas = document.getElementById("particles");
+        const c = canvas.getContext("2d");
+
+        let particles = [];
+
+        function resize() {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+        }
+        addEventListener("resize", resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random()*canvas.width;
+                this.y = Math.random()*canvas.height;
+                this.size = Math.random()*3+1;
+                this.speedY = Math.random()*0.5+0.2;
+                this.alpha = Math.random()*0.9+0.1;
             }
-          }
+            draw() {
+                c.fillStyle = `rgba(255,255,255,${this.alpha})`;
+                c.beginPath();
+                c.arc(this.x, this.y, this.size, 0, Math.PI*2);
+                c.fill();
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y > canvas.height) {
+                    this.y = -5;
+                    this.x = Math.random()*canvas.width;
+                }
+            }
         }
 
-        requestAnimationFrame(render);
-      }
-      render();
+        for (let i = 0; i < 150; i++) particles.push(new Particle());
 
-      window.addEventListener('resize', ()=>{
-        w = canvas.width = innerWidth;
-        h = canvas.height = innerHeight;
-        canvas.width = innerWidth * DPR;
-        canvas.height = innerHeight * DPR;
-        canvas.style.width = innerWidth + 'px';
-        canvas.style.height = innerHeight + 'px';
-        ctx.scale(DPR, DPR);
-      });
-    })();
-
-    /**********************
-     * App logic (frontend)
-     * Sends base64 to /api/upload, then /api/issue
-     **********************/
-    (function () {
-      const drop = document.getElementById('drop');
-      const fileInput = document.getElementById('fileInput');
-      const selectBtn = document.getElementById('selectBtn');
-      const uploadBtn = document.getElementById('uploadBtn');
-      const loading = document.getElementById('loading');
-      const status = document.getElementById('status');
-      const imagePreview = document.getElementById('imagePreview');
-      const fileNameEl = document.getElementById('fileName');
-      const fileSizeEl = document.getElementById('fileSize');
-      const fileDimensions = document.getElementById('fileDimensions');
-      const fileFormat = document.getElementById('fileFormat');
-      const resultBox = document.getElementById('result');
-      const copyBtn = document.getElementById('copyBtn');
-      const viewBtn = document.getElementById('viewBtn');
-
-      // helper
-      function showStatus(msg, type){
-        status.style.display = 'block';
-        status.textContent = msg;
-        status.style.color = type === 'error' ? '#fca5a5' : '#9ee6b8';
-      }
-
-      function formatFileSize(bytes){
-        if (!bytes) return '0 Bytes';
-        const k = 1024; const sizes = ['Bytes','KB','MB','GB'];
-        const i = Math.floor(Math.log(bytes)/Math.log(k));
-        return parseFloat((bytes/Math.pow(k,i)).toFixed(2)) + ' ' + sizes[i];
-      }
-
-      function readFileAsBase64(file){
-        return new Promise((resolve,reject)=>{
-          const r = new FileReader();
-          r.onload = ()=> resolve(r.result.split(',')[1]);
-          r.onerror = reject;
-          r.readAsDataURL(file);
-        });
-      }
-
-      // interactions
-      selectBtn.addEventListener('click', ()=> fileInput.click());
-      drop.addEventListener('click', ()=> fileInput.click());
-      fileInput.addEventListener('change', handleFile);
-
-      drop.addEventListener('dragover', (e)=>{ e.preventDefault(); drop.style.transform='translateY(-6px)'; });
-      drop.addEventListener('dragleave', ()=>{ drop.style.transform='none'; });
-      drop.addEventListener('drop', (e)=>{ e.preventDefault(); drop.style.transform='none'; if(e.dataTransfer.files.length){ fileInput.files = e.dataTransfer.files; handleFile(); }});
-
-      function handleFile(){
-        const file = fileInput.files[0];
-        if (!file) return;
-        if (!file.type.startsWith('image/')) return showStatus('Silakan pilih file gambar.', 'error');
-        if (file.size > 10 * 1024 * 1024) return showStatus('Ukuran file melebihi 10MB.', 'error');
-
-        const reader = new FileReader();
-        reader.onload = (e)=>{
-          imagePreview.src = e.target.result;
-          fileNameEl.textContent = file.name;
-          fileSizeEl.textContent = formatFileSize(file.size);
-          fileFormat && (fileFormat.textContent = file.type.split('/')[1].toUpperCase());
-          const img = new Image();
-          img.onload = ()=> fileDimensions.textContent = img.width + ' × ' + img.height;
-          img.src = e.target.result;
-          status.style.display = 'none';
-          resultBox.style.display = 'none';
-          copyBtn.style.display = 'none';
-          viewBtn.style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-      }
-
-      uploadBtn.addEventListener('click', async ()=>{
-        const file = fileInput.files[0];
-        if (!file) return showStatus('Pilih file terlebih dahulu.', 'error');
-
-        loading.style.display = 'inline';
-        uploadBtn.disabled = true;
-        showStatus('', ''); // clear
-
-        try {
-          const base64 = await readFileAsBase64(file);
-          const fileName = Date.now() + '-' + file.name;
-
-          // Upload to backend
-          const up = await fetch('/api/upload', {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ fileName, content: base64 })
-          });
-
-          const upJson = await up.json();
-          if (!up.ok) throw new Error(upJson.error || upJson.message || 'Gagal upload');
-
-          const imageUrl = upJson.download_url || (upJson.html_url || upJson.path ? ('https://raw.githubusercontent.com/' + (upJson.path? upJson.path.split('/').slice(0,3).join('/') : '') ) : null) || upJson.url;
-
-          // create issue
-          try {
-            await fetch('/api/issue', {
-              method:'POST',
-              headers:{'Content-Type':'application/json'},
-              body: JSON.stringify({ title: 'Foto Baru: ' + file.name, body: `Foto baru telah diupload:\\n\\n![${file.name}](${imageUrl})` })
+        function animate() {
+            c.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
             });
-          } catch(e){
-            console.warn('Issue creation error', e);
-          }
-
-          // show result
-          resultBox.style.display = 'block';
-          resultBox.textContent = imageUrl;
-          copyBtn.style.display = 'inline-block';
-          viewBtn.style.display = 'inline-block';
-          copyBtn.onclick = ()=> navigator.clipboard.writeText(imageUrl).then(()=> showStatus('Link disalin!', 'success')).catch(()=> showStatus('Gagal menyalin', 'error'));
-          viewBtn.onclick = ()=> window.open(imageUrl, '_blank');
-
-          showStatus('Upload berhasil! Link tersedia di kotak Result.', 'success');
-
-        } catch (err){
-          console.error(err);
-          showStatus(err.message || 'Terjadi kesalahan', 'error');
-        } finally {
-          loading.style.display = 'none';
-          uploadBtn.disabled = false;
+            requestAnimationFrame(animate);
         }
-      });
+        animate();
+    </script>
 
-    })();
-  </script>
 </body>
 </html>
