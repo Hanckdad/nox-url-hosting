@@ -1,33 +1,53 @@
+// api/issue.js
+
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
-  try {
-    const { title, body } = req.body || {};
-    if (!title) return res.status(400).json({ error: 'Missing title' });
+    if (req.method !== "POST")
+        return res.status(405).json({ error: "Method not allowed" });
 
-    const token = process.env.GITHUB_TOKEN;
-    const username = process.env.GITHUB_USERNAME || 'Hanckdad';
-    const repo = process.env.GITHUB_REPO || 'Database-Foto';
+    try {
+        const { filename, imageUrl } = req.body;
 
-    if (!token) return res.status(500).json({ error: 'GITHUB_TOKEN not configured in environment' });
+        if (!filename || !imageUrl) {
+            return res.status(400).json({ error: "Invalid body" });
+        }
 
-    const url = `https://api.github.com/repos/${username}/${repo}/issues`;
+        const token = process.env.GITHUB_TOKEN;
+        const username = "Hanckdad";
+        const repo = "Database-Foto";
 
-    const resp = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/vnd.github+json'
-      },
-      body: JSON.stringify({ title, body })
-    });
+        const issueTitle = `Foto Baru: ${filename}`;
+        const issueBody = `Foto telah diupload:\n\n![${filename}](${imageUrl})`;
 
-    const data = await resp.json();
-    if (!resp.ok) return res.status(resp.status).json({ error: data.message || data });
+        const response = await fetch(
+            `https://api.github.com/repos/${username}/${repo}/issues`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    title: issueTitle,
+                    body: issueBody,
+                }),
+            }
+        );
 
-    return res.status(200).json(data);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: err.message });
-  }
+        const data = await response.json();
+
+        if (!response.ok) {
+            return res.status(500).json({
+                error: "Gagal membuat issue",
+                detail: data,
+            });
+        }
+
+        return res.status(200).json({
+            message: "Issue berhasil dibuat",
+            issueUrl: data.html_url,
+        });
+
+    } catch (err) {
+        return res.status(500).json({ error: "Server error", detail: err });
+    }
 }
